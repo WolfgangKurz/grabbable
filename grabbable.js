@@ -1,6 +1,6 @@
 /*!
  * grabbable
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * Copyright 2016 Wolfgang Kurz
  * Released under the MIT license
@@ -31,10 +31,13 @@
 		dummy.className = "grabbable-dummy";
 		dummy.style.position = "relative";
 		dummy.addEventListener("drop", function(e){
+			var data = e.dataTransfer.getData("text");
+			if(data.length==0) return;
+
 			e.preventDefault();
 			e.stopPropagation();
 
-			var obj = JSON.parse(e.dataTransfer.getData("text"));
+			var obj = JSON.parse(data);
 			var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
 
 			this.parentNode.insertBefore(elem, this);
@@ -70,10 +73,13 @@
 		e.stopPropagation();
 	};
 	var allowDrop = function(e){
+		var data = e.dataTransfer.getData("text");
+		if(data.length==0) return;
+
 		e.preventDefault();
 		e.stopPropagation();
 
-		var obj = JSON.parse(e.dataTransfer.getData("text"));
+		var obj = JSON.parse(data);
 		if(this.previousElementSibling!=dummy)
 			this.parentNode.insertBefore(dummy, this);
 		else
@@ -94,9 +100,12 @@
 		this.id = id;
 	};
 	var resetDrop = function(e){
+		var data = e.dataTransfer.getData("text");
+		if(data.length==0) return;
+
 		prevent(e);
 
-		var obj = JSON.parse(e.dataTransfer.getData("text"));
+		var obj = JSON.parse(data);
 		var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
 		dummy.parentNode.insertBefore(elem, dummy);
 		dummy.style.display = "none";
