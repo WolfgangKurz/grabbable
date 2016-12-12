@@ -1,3 +1,11 @@
+/*!
+ * grabbable
+ * Version: 1.0.0
+ *
+ * Copyright 2016 Wolfgang Kurz
+ * Released under the MIT license
+ * https://github.com/WolfgangKurz/grabbable
+ */
 "use strict";
 !function(){
 	var grabbableStyle = function(){
