@@ -1,6 +1,6 @@
 /*!
  * grabbable
- * Version: 1.0.3
+ * Version: 1.0.4
  *
  * Copyright 2016 Wolfgang Kurz
  * Released under the MIT license
@@ -116,6 +116,8 @@
 		for(var i=0; i<this.children.length; i++){
 			var el = this.children[i];
 			if(typeof el.draggabled=="undefined"){
+				if(el==dummy) continue;
+
 				el.draggable = true;
 
 				el.addEventListener("dragstart", dragOn);
