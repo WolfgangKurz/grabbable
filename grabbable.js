@@ -1,6 +1,6 @@
 /*!
  * grabbable
- * Version: 1.0.1
+ * Version: 1.0.2
  *
  * Copyright 2016 Wolfgang Kurz
  * Released under the MIT license
@@ -37,9 +37,11 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var obj = JSON.parse(data);
-			var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
+			var obj;
+			try { obj = JSON.parse(data); }
+			catch (err) { return; }
 
+			var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
 			this.parentNode.insertBefore(elem, this);
 
 			if(obj.prevId.length>0) elem.id = obj.prevId;
@@ -56,7 +58,7 @@
 		bg.style.left = el.offsetLeft+"px";
 		bg.style.top = el.offsetTop+"px";
 		dummy.style.width = el.offsetWidth+"px";
-		dummy.style.height = el.offsetWidth+"px";
+		dummy.style.height = el.offsetHeight+"px";
 
 		var style = window.getComputedStyle(el);
 		dummy.style.display = style.display;
@@ -79,7 +81,10 @@
 		e.preventDefault();
 		e.stopPropagation();
 
-		var obj = JSON.parse(data);
+		var obj;
+		try { obj = JSON.parse(data); }
+		catch (err) { return; }
+
 		if(this.previousElementSibling!=dummy)
 			this.parentNode.insertBefore(dummy, this);
 		else
@@ -105,7 +110,10 @@
 
 		prevent(e);
 
-		var obj = JSON.parse(data);
+		var obj;
+		try { obj = JSON.parse(data); }
+		catch (err) { return; }
+
 		var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
 		dummy.parentNode.insertBefore(elem, dummy);
 		dummy.style.display = "none";
@@ -115,16 +123,24 @@
 	else document.addEventListener("DOMContentLoaded", function(){ initGrabbable() });
 
 	HTMLElement.prototype.grabbable = function(){
-		this.className += " grabbable";
+		if( (" "+this.className+" ").indexOf(" grabbable ")<0 )
+			this.className += " grabbable";
 
 		for(var i=0; i<this.children.length; i++){
 			var el = this.children[i];
-			el.draggable = true;
-			el.addEventListener("dragstart", dragOn);
-			el.addEventListener("dragover", allowDrop);
-			el.addEventListener("dragdrop", prevent);
+			if(typeof el.draggabled=="undefined"){
+				el.draggable = true;
+				el.addEventListener("dragstart", dragOn);
+				el.addEventListener("dragover", allowDrop);
+				el.addEventListener("dragdrop", prevent);
+				el.draggabled = true;
+			}
 		}
-		document.addEventListener("dragover", prevent);
-		document.addEventListener("drop", resetDrop);
+
+		if(typeof document.draggabled=="undefined"){
+			document.addEventListener("dragover", prevent);
+			document.addEventListener("drop", resetDrop);
+			document.draggabled = true;
+		}
 	};
 }()
