@@ -1,6 +1,6 @@
 /*!
  * grabbable
- * Version: 1.0.2
+ * Version: 1.0.3
  *
  * Copyright 2016 Wolfgang Kurz
  * Released under the MIT license
@@ -11,12 +11,21 @@
 	var grabbableStyle = function(){
 		var style = document.createElement("style");
 		style.type = "text/css";
-		style.innerHTML = ".grabbable > * { cursor: grab } "
+		style.innerHTML = ".grabbable > * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: -webkit-grab; cursor: grab } "
 			+ ".grabbable > .grabbable-dummy {"
 			+ " border: 1px solid #d4d4d4;"
 			+ " background: repeating-linear-gradient( -45deg, #fff, #fff 4px, #d4d4d4 4px, #d4d4d4 5px );"
 			+ "}";
 		document.querySelector("body").appendChild(style);
+	};
+	var callCallback = function(elem){
+		if(document.createEventObject) {
+			elem.fireEvent("ondragged");
+		} else {
+			var evt = document.createEvent("HTMLEvents");
+			evt.initEvent("dragged", false, true);
+			elem.dispatchEvent(evt);
+		}
 	};
 
 	var dummy = null, bg = null;
@@ -32,22 +41,18 @@
 		dummy.style.position = "relative";
 		dummy.addEventListener("drop", function(e){
 			var data = e.dataTransfer.getData("text");
-			if(data.length==0) return;
+			if(data!="draggable") return;
 
 			e.preventDefault();
 			e.stopPropagation();
 
-			var obj;
-			try { obj = JSON.parse(data); }
-			catch (err) { return; }
-
-			var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
-			this.parentNode.insertBefore(elem, this);
-
-			if(obj.prevId.length>0) elem.id = obj.prevId;
-			else elem.removeAttribute("id");
+			while(bg.children.length>0){
+				var elem = bg.children[0];
+				this.parentNode.insertBefore(elem, this);
+			}
 
 			dummy.style.display = "none";
+			callCallback(dummy.parentNode);
 		});
 
 		var x = document.querySelector("body");
@@ -75,15 +80,9 @@
 		e.stopPropagation();
 	};
 	var allowDrop = function(e){
-		var data = e.dataTransfer.getData("text");
-		if(data.length==0) return;
-
 		e.preventDefault();
-		e.stopPropagation();
 
-		var obj;
-		try { obj = JSON.parse(data); }
-		catch (err) { return; }
+		e.stopPropagation();
 
 		if(this.previousElementSibling!=dummy)
 			this.parentNode.insertBefore(dummy, this);
@@ -91,32 +90,20 @@
 			this.parentNode.insertBefore(dummy, this.nextElementSibling);
 	}
 	var dragOn = function(e){
-		updateDummy(this);
-
-		var id = "_GRABBABLE$"+Math.random().toFixed(8).substr(2);
-		var obj = {
-			element: id,
-			prevId: this.id
-		};
-		e.dataTransfer.setData("text", JSON.stringify(obj));
-
-		this.parentNode.insertBefore(dummy, this);
-		bg.appendChild(this);
-		this.id = id;
+		e.dataTransfer.setData("text", "draggable");
 	};
 	var resetDrop = function(e){
 		var data = e.dataTransfer.getData("text");
-		if(data.length==0) return;
+		if(data!="draggable") return;
 
 		prevent(e);
 
-		var obj;
-		try { obj = JSON.parse(data); }
-		catch (err) { return; }
-
-		var elem = document.querySelector("#"+obj.element.replace("$","\\$"));
-		dummy.parentNode.insertBefore(elem, dummy);
+		while(bg.children.length>0){
+			var elem = bg.children[0];
+			dummy.parentNode.insertBefore(elem, dummy);
+		}
 		dummy.style.display = "none";
+		callCallback(dummy.parentNode);
 	};
 
 	if(document.readyState=="complete") initGrabbable();
@@ -130,9 +117,23 @@
 			var el = this.children[i];
 			if(typeof el.draggabled=="undefined"){
 				el.draggable = true;
+
 				el.addEventListener("dragstart", dragOn);
 				el.addEventListener("dragover", allowDrop);
-				el.addEventListener("dragdrop", prevent);
+				el.addEventListener("drag", function(){
+					if(this.parentNode==bg) return;
+					if(this==dummy) return;
+
+					updateDummy(this);
+					this.parentNode.insertBefore(dummy, this);
+					bg.appendChild(this);
+				});
+				el.addEventListener("drop", function(e){
+					prevent(e);
+
+					if(document.createEventObject) dummy.fireEvent("ondrop", e);
+					else dummy.dispatchEvent(new DragEvent(e.type, e));
+				});
 				el.draggabled = true;
 			}
 		}
