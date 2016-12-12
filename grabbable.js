@@ -3,8 +3,11 @@
 	var grabbableStyle = function(){
 		var style = document.createElement("style");
 		style.type = "text/css";
-		style.innerHTML = ".grabbable > * { cursor: grab }"
-			+ " .grabbable > .grabbable-dummy { border: 1px solid #707070 }";
+		style.innerHTML = ".grabbable > * { cursor: grab } "
+			+ ".grabbable > .grabbable-dummy {"
+			+ " border: 1px solid #d4d4d4;"
+			+ " background: repeating-linear-gradient( -45deg, #fff, #fff 4px, #d4d4d4 4px, #d4d4d4 5px );"
+			+ "}";
 		document.querySelector("body").appendChild(style);
 	};
 
