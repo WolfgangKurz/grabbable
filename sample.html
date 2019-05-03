@@ -48,7 +48,9 @@
 "use strict";
 !function(){
 	document.querySelector(".grabbable-parent")
-		.grabbable();
+		.grabbable(function() {
+			alert('Grabbed!');
+		});
 }()
 </script>
 </body>
