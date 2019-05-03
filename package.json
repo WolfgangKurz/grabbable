@@ -1,8 +1,8 @@
 {
-  "name": "js-utilities",
+  "name": "grabbable2",
   "version": "3.0.0",
-  "description": "Javascript utilities functions",
-  "main": "Grabbable2",
+  "description": "Pure js Drag&Drop with callback",
+  "main": "grabbable.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
