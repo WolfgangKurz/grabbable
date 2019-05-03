@@ -1,6 +1,6 @@
 {
   "name": "grabbable2",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Pure js Drag&Drop with callback",
   "main": "grabbable.js",
   "scripts": {
