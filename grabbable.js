@@ -11,6 +11,20 @@
  * Massimo Cassandro (2018)
  * https://github.com/massimo-cassandro/grabbable2
  */
+
+ //TODO
+/*
+	- compatibilità con css grid
+	- es 6
+	- eliminare compatibilità IE
+	- vedi: 
+			https://codepen.io/therealDaze/pen/ZaoErp
+			https://github.com/gridstack/gridstack.js
+			https://developer.mozilla.org/it/docs/Web/API/HTML_Drag_and_Drop_API
+			https://www.html5rocks.com/en/tutorials/dnd/basics/
+*/
+
+
 "use strict";
 !function(){
 	var grabbableStyle = function(){
