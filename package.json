@@ -1,19 +1,19 @@
 {
-  "name": "grabbable2",
-  "version": "1.0.0",
-  "description": "Pure js Drag&Drop with callback",
-  "main": "grabbable.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/massimo-cassandro/grabbable2.git"
-  },
-  "author": "Massimo Cassandro",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/massimo-cassandro/grabbable2/issues"
-  },
-  "homepage": "https://github.com/massimo-cassandro/grabbable2#readme"
+	"name": "grabbable2",
+	"version": "2.0.0",
+	"description": "Pure js Drag&Drop with callback",
+	"main": "grabbable.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wolfgangkurz/grabbable.git"
+	},
+	"author": "Wolfgang Kurz, Massimo Cassandro",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/wolfgangkurz/grabbable2/issues"
+	},
+	"homepage": "https://github.com/wolfgangkurz/grabbable2#readme"
 }
