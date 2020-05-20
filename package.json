@@ -1,19 +1,29 @@
 {
-	"name": "grabbable2",
-	"version": "2.0.0",
-	"description": "Pure js Drag&Drop with callback",
-	"main": "grabbable.js",
+	"name": "grabbable",
+	"version": "2.1.0",
+	"description": "Pure TypeScript/JavaScript HTMLElement Drag & Drop library",
+	"main": "dist/grabbable.js",
 	"scripts": {
+		"build": "npx webpack && tsc --emitDeclarationOnly",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/wolfgangkurz/grabbable.git"
 	},
-	"author": "Wolfgang Kurz, Massimo Cassandro",
+	"author": "Wolfgang Kurz",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/wolfgangkurz/grabbable2/issues"
 	},
-	"homepage": "https://github.com/wolfgangkurz/grabbable2#readme"
+	"homepage": "https://github.com/wolfgangkurz/grabbable2#readme",
+	"devDependencies": {
+		"@types/node": "^14.0.4",
+		"babel-loader": "^8.1.0",
+		"caniuse-lite": "^1.0.30001062",
+		"ts-loader": "^7.0.4",
+		"typescript": "^3.9.3",
+		"webpack": "^4.43.0",
+		"webpack-cli": "^3.3.11"
+	}
 }
