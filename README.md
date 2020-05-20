@@ -1,9 +1,9 @@
 # Grabbable 2 (Grabbable with callback)
 Drag&amp;drop reorder javascript library. Pure, no css, free.
 
-Forked from Grabbable (<https://github.com/WolfgangKurz/grabbable>), by Wolfgang Kurz.
+Callback parameter added, by Massimo Cassandro.
 
-Grabbable 2 adds the ability to bind a callback function to the drag&drop event.
+Grabbable 2 adds the ability to bind a callback function to the drag&amp;drop event.
 
 ## Usage
 
