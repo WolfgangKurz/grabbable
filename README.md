@@ -35,11 +35,11 @@ context.destroy();
 ## Binding Grabbable
 If you want to configure more specifically, pass some options when call `grabbable()`.
 
-| Key        | Type                                                        | Default | Description |
-|---         |---                                                          |---      |--- |
-| callback   | `(HTMLElement, newIndex: number, oldIndex: number) => void` | `null`  | Callback function will be called if element position changed.
-| style      | `{ [key: string]: string }`                                 | `{}`    | Use when customize placeholder's style.
-| rememberId | `string`                                                    | `""`    | If you set, Grabbable will save &amp; restore position automatically via `localStorage` with `rememberId` key.
+| Key        | Type                                                              | Default | Description |
+|---         |---                                                                |---      |--- |
+| callback   | `(elem: HTMLElement, newIndex: number, oldIndex: number) => void` | `null`  | Callback function will be called if element position changed.
+| style      | `{ [key: string]: string }`                                       | `{}`    | Use when customize placeholder's style.
+| rememberId | `string`                                                          | `""`    | If you set, Grabbable will save &amp; restore position automatically via `localStorage` with `rememberId` key.
 
 ## Grabbable Context
 `grabbable()` and TypeScript's `new Grabbable()` returns Grabbable context, can control grabbable element.
