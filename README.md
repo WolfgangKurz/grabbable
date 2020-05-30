@@ -1,5 +1,5 @@
 # Grabbable 2.1
-Drag &amp; drop reorder TypeScript/JavaScript library.
+Drag &amp; drop reordering TypeScript/JavaScript library.
 
 No dependencies, No CSS files, and free.
 
